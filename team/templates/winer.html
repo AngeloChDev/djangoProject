@@ -1,0 +1,15 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="row h">
+      
+      <div class="row"><h3> {{ values.result_title }}</h3></div>
+      <div class="col-3 win"> 
+            {% for round in values.rounds%}
+            <h3>{{round}}</h3>
+            {% endfor%}
+      </div>
+      <div class="col-3"></div>
+</div>
+
+{% endblock%}

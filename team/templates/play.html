@@ -1,0 +1,37 @@
+{% extends "index.html" %}
+
+{% block content %}
+<script>
+    window.onload = function() {
+        var form = document.getElementById('myForm');
+        var timer = setTimeout(function() {
+            form.submit();
+        }, 15000); // Timer di 10 secondi (10000 millisecondi)
+
+        form.addEventListener('submit', function() {
+            clearTimeout(timer); // Annulla il timer se il form viene inviato manualmente
+        });
+    };
+</script>
+<h4> Quiz<br>{{quiz.n1 }} {{quiz.simbol }} {{quiz.n2}}</h4>
+<form class="row p-3"id="myForm" method="POST">{% csrf_token %}
+    <!-- Inserisci qui i campi del form -->
+    <input type="hidden" name="quiz" value="{{quiz}}">
+    <div class="col p-3">
+        <h3>{{squads.home.name}}</h3>
+        {%for player in squads.home.players%}
+        <input class="m-2" type="number" name="player_home-{{player.id}}" ><br>
+        {% endfor %}
+    </div>
+    <div class="col p-3">
+        <h3>{{squads.ospit.name}}</h3>
+        {%for player in squads.ospit.players%}
+        <input class="m-2" type="number" name="player_ospit-{{player.id}}" ><br>
+        {% endfor %}
+    </div>
+    
+    <input type="hidden" name="submit_btn" value="quiz_result">
+    <button type="submit" name="submit_btn" value="quiz_result">Invia</button>
+</form>
+
+{%endblock%}

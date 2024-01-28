@@ -1,0 +1,34 @@
+{% extends "all_players.html" %}
+
+
+{% block infoplayer %}
+<div class="position-absolute col-7 top-05">
+      <div class="card border-success mb-3 widht-60 p-3 w-c">
+            <div class="card-header">{{info_player.player}}</div>
+            <div class="card-body text-success">
+                  
+                  <p class="card-text w-c">{{info_player.player}} play in {{info_player.team.name}} team of {{info_player.team.town}} city.<br>
+                  {% if info_player.profile%}
+                        Player height :{{info_player.profile.height}}<br>
+                        Player weight : {{info_player.profile.weight}}<br>
+                        Player Nationality : {{info_player.profile.nationality}}
+
+                  {%endif%}</p>
+                  <div class="card border-success mb-3 p-3">
+                        <div class="card-header">{{info_player.player}}</div>
+                        <div class="card-body text-success">
+                              <ul>This player was played in this others teams il him last tournment
+                              {% for team in old %}
+                                    <li>year : {{team.year}} {{team.team.name}}</li>
+                              {%endfor%}
+                              </ul>
+                        </div>
+                  </div>
+                  
+            </div>
+      </div>
+</div>
+
+
+
+{% endblock infoplayer %}

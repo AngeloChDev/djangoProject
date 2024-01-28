@@ -1,0 +1,40 @@
+.container-home{
+      height: 100%;
+      background-color:rgba(0,0,0,0.7);
+      padding: 2em;
+}
+.content_body{
+      height:max-content;
+      background-color: brown;
+      padding: 2em;
+      height: 100%;
+      padding-bottom: 10em;
+}
+
+
+
+label {
+      color: whitesmoke;
+      font-size: 27px;
+      font-weight: bold;
+}
+
+.top-05{
+      top:20%;
+      right: 0%;
+}
+
+.no-line{
+      text-decoration-line: none;
+}
+.white{
+      color:whitesmoke;
+}
+.widht-60{
+      width: 60%;
+}
+.f-bold{
+      font-weight:800;
+}
+
+

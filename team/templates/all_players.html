@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+<div class="col m-3 p-4 fs-2 white">
+      <ul class="ps-5">
+            {% for player in players %}
+            <li><a class="no-line" href="{% url 'home_player' player.id%}">{{player.player}}</a></li>
+            {% endfor %}
+      </ul>
+
+      {% block infoplayer %}
+      {% endblock infoplayer %}
+
+</div>
+
+{% endblock content %}

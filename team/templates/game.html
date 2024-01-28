@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form name="start"  method="POST">{% csrf_token %}
+      <!-- Inserisci qui i campi del form -->
+      <input type="text" name="player_home" >
+      <input type="text" name="player_ospit">
+      
+      <button name="submit_btn" value="start_game"type="submit">Invia</button>
+</form>
+
+
+
+{% endblock%}
