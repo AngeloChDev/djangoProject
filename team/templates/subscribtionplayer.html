@@ -1,0 +1,18 @@
+<button  popovertarget="form_subscribe_player2" popovertargetaction="toggle" class="btn btn-info height-1 widht-6 m-5 p-0">Subscribe new player2</button>
+
+<div class="height-30 mb-3 widht-3 little">
+      
+      <form popover id="form_subscribe_player2" class="col-4 m-auto widht-3 mt-3 base-color  shadow opacity-02 little" method="POST">
+            <fieldset class="border border-info p-5 pb-5 rounded-2 shadow widht-3 opacity-02" >
+                  <legend class="fs-2 bold-8 white text-center">Sign up new player</legend>
+
+                  
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        
+                        
+                        <button name="submit_btn_player" value="register_player"type="submit" class="btn btn-success widht-30 height-1 fs-3 mt-2">Send</button>
+
+            </fieldset>
+      </form>
+</div>

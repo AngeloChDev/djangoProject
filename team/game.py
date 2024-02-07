@@ -14,7 +14,7 @@ class PlayGame:
             self.ospit_opponent=None
             self._game=None
             self.context=None
-            self.score = {'home':0, 'ospit':0, 'rounds':dict()}
+            self.score = {'home':0, 'ospit':0, 'rounds':list()}
 
       def start_game(self,home_team, opponent,date=now):
             self.home_team=Teams.objects.get(name=home_team)
@@ -32,24 +32,27 @@ class PlayGame:
             self._game.save()
 
       def make_output(self):
-            tit="The winner team is {}".format('')
+            tit="The winner team is {}"
             if self.score['home'] > self.score['ospit'] :
-                  tit.format(self.score['home_name']) 
+                  tit = tit.format(self.score['home_name']) 
             elif self.score['home'] < self.score['ospit'] :
-                  tit.format(self.score['ospit_name'])
+                  tit = tit.format(self.score['ospit_name'])
             elif self.score['home'] == self.score['ospit'] :
                   tit = "This game finisch with a parity"
-            points=f"{tit}<br>{self.score['home_name']} {self.score['home']} - {self.score['ospit']} {self.score['ospit_name']}"
+            points=f"{tit} <br> {self.score['home_name']} {self.score['home']} - {self.score['ospit']} {self.score['ospit_name']}"
             self.score['result_title'] = points
-            tot=[]
-            goals=Gols_Scored.objects.filter(game=self._game)
-            for team in self.context['squads'].values() :
-                  for player in team['players'] :
-                        goal_player = len(goals.filter(player=player))
-                        tot.append((goal_player, player))
-            top =sorted(tot,key=lambda x: x[0])
+            T=dict()
+            for round in self.score["rounds"]:
+                  for winer in round["winners"]:
+                        if isinstance(winer, str):
+                              pass
+                        else:
+                              if winer["player"].id not in T.keys():
+                                    T[winer["player"].id] = [0, winer["player"]]
+                              T[winer["player"].id][0] += 1
+            top =sorted(list(T.values()),key=lambda x: x[0],reverse=True)
             self.score['top'] = top
-
+            self.end_game()
 
       @staticmethod
       def make_quiz():
@@ -70,7 +73,6 @@ class PlayGame:
                   res = n1 + n2
             elif simbol == '-':
                   res = n1 - n2
-            print(isinstance(res, int), res<0 )
             if isinstance(res, int) and res > 0:
                   return res
             return False

@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1 class="{{detail_class.title}}">{{detail.title}}</h1>
+<div class="row p-4 m-3">
+      <div class="row red fs-3  bold-8">
+            Team name : {{team.name}}<br>
+            Town : {{ team.town}}<br>
+            Flag color : {{ team.color }}
+      </div>
+            
+</div>
+{% include "submitTeam.html" %}
+<div class="row">
+      <div class="col-7 ms-5 ps-4">
+            <h3 class="rounds fs-1">Team Players</h3>
+            <ol type="1" class="ms-2 p-2">
+            {% for player in players %}
+                  <li class="white fs-3 ms-2 ps-2">{{player.player}}</li>
+            {% endfor %}
+            </ol>
+      </div>
+      <div class="col">
+            <h3 class="rounds fs-1">Team Games Home</h3>
+            <ol type="1">
+                  {% for gh in games_home %}
+                        <li class="white fs-3">{{gh.team.name}}  {{gh.score}} {{gh.opponent}}</li>
+                  {% endfor %}
+            </ol>
+            <hr>
+            <h3 class="rounds fs-1">Team Games Ospit</h3>
+            <ol type="1">
+                  {% for go in games_ospit %}
+                        <li class="white fs-3">{{go.team.name}}  {{go.score}} {{go.opponent}}</li>
+                  {% endfor %}
+            </ol>
+      </div>
+
+
+
+</div>
+
+{% endblock content %}

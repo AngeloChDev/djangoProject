@@ -1,15 +1,23 @@
 {% extends "index.html" %}
-
+{% load  custom_filter %}
 {% block content %}
-<div class="row h">
+<div class="row ">
       
-      <div class="row"><h3> {{ values.result_title }}</h3></div>
-      <div class="col-3 win"> 
-            {% for round in values.rounds%}
-            <h3>{{round}}</h3>
-            {% endfor%}
+      <div class="row height-3 mt-5"><h3 class="text-center bold-6 fs-1 white"> {{ values.result_title | safe }}</h3></div>
+      <div class="col-5 ms-2 p-3"> 
+            
+            <h3 class="white space bold-6 p-5">{{  values.rounds |lop |safe}}</h3>
+            
+            
+      </div> 
+                  
+            
+      <div class="col-3 ms-2 pe-2">
+            <h3 class="white bold-6"><span class="rounds"> Top Players in this Game</span></h3>
+            {% for t in values.top %}
+            <h3 class="white bold-6">{{ t.0 }} {{t.1.player}}  </h3>
+            {% endfor %}
       </div>
-      <div class="col-3"></div>
 </div>
 
 {% endblock%}

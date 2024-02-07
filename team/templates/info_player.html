@@ -1,23 +1,24 @@
 {% extends "all_players.html" %}
+<h1 class="{{detail_class.title}}">{{detail.title}}</h1>
 
-
+{% include 'subscribtionplayer.html' %}
 {% block infoplayer %}
-<div class="position-absolute col-7 top-05">
-      <div class="card border-success mb-3 widht-60 p-3 w-c">
-            <div class="card-header">{{info_player.player}}</div>
+<div class="position-absolute col-7 top-04 height-10" id="infoplayer">
+      <div class="card border-success mb-3 widht-6 p-3" id="infoplayercard">
+            <div class="card-header text-center">{{info_player.player}}</div>
             <div class="card-body text-success">
                   
-                  <p class="card-text w-c">{{info_player.player}} play in {{info_player.team.name}} team of {{info_player.team.town}} city.<br>
+                  <p class="card-text fs-4">{{info_player.player}} play in {{info_player.team.name}} team of {{info_player.team.town}} city.<br>
                   {% if info_player.profile%}
-                        Player height :{{info_player.profile.height}}<br>
-                        Player weight : {{info_player.profile.weight}}<br>
+                        Player height :{{info_player.profile.height}} m<br>
+                        Player weight : {{info_player.profile.weight}} kg<br>
                         Player Nationality : {{info_player.profile.nationality}}
 
                   {%endif%}</p>
                   <div class="card border-success mb-3 p-3">
-                        <div class="card-header">{{info_player.player}}</div>
-                        <div class="card-body text-success">
-                              <ul>This player was played in this others teams il him last tournment
+                        <div class="card-header fs-3">History player {{info_player.player}} team partecipation</div>
+                        <div class="card-body text-success fs-3">
+                              <ul>
                               {% for team in old %}
                                     <li>year : {{team.year}} {{team.team.name}}</li>
                               {%endfor%}

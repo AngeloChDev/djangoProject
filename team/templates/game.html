@@ -1,14 +1,15 @@
 {% extends "index.html" %}
 
 {% block content %}
-<form name="start"  method="POST">{% csrf_token %}
-      <!-- Inserisci qui i campi del form -->
-      <input type="text" name="player_home" >
-      <input type="text" name="player_ospit">
-      
-      <button name="submit_btn" value="start_game"type="submit">Invia</button>
-</form>
-
+<div class="m-5 p-5 col">
+      <form name="start"  method="POST" class="p-5">{% csrf_token %}
+            <!-- Inserisci qui i campi del form -->
+            <input type="text" name="player_home" class="form-control shadow fs-3 m-2" placeholder="team home">
+            <input type="text" name="player_ospit" class="form-control shadow fs-3 m-2" placeholder="team ospit">
+            
+            <button name="submit_btn" value="start_game"type="submit" class="btn btn-success widht-4 height-1 m-2">Send</button>
+      </form>
+</div>
 
 
 {% endblock%}

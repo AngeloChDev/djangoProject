@@ -13,6 +13,8 @@
         });
     };
 </script>
+
+
 <h4> Quiz<br>{{quiz.n1 }} {{quiz.simbol }} {{quiz.n2}}</h4>
 <form class="row p-3"id="myForm" method="POST">{% csrf_token %}
     <!-- Inserisci qui i campi del form -->
@@ -20,18 +22,20 @@
     <div class="col p-3">
         <h3>{{squads.home.name}}</h3>
         {%for player in squads.home.players%}
-        <input class="m-2" type="number" name="player_home-{{player.id}}" ><br>
+        <p class="fs-2">{{player.player}}</p>
+        <input class="form-control shadow fs-3 m-1"  type="number" name="player_home-{{player.id}}" ><br>
         {% endfor %}
     </div>
     <div class="col p-3">
         <h3>{{squads.ospit.name}}</h3>
         {%for player in squads.ospit.players%}
-        <input class="m-2" type="number" name="player_ospit-{{player.id}}" ><br>
+        <p class="fs-2">{{player.player}}</p>
+        <input class="form-control shadow fs-3 ms-4"  type="number" name="player_ospit-{{player.id}}" ><br>
         {% endfor %}
     </div>
     
     <input type="hidden" name="submit_btn" value="quiz_result">
-    <button type="submit" name="submit_btn" value="quiz_result">Invia</button>
+    <button type="submit" name="submit_btn" value="quiz_result" class="btn btn-success widht-4 height-1 mb-4 me-4" >Invia</button>
 </form>
 
 {%endblock%}

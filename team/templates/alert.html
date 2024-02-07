@@ -1,0 +1,35 @@
+
+
+{% for msg in messages%}{%if msg.extra_tags == 'new_team' or 'del_team'%}
+
+      {%if msg.level == 40 %}
+      <div class="alert alert-danger d-flex align-items-center alert-dismissible mb-0" role="alert">
+            <div class="m-auto">    
+                  <div class="col">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"  fill="currentColor" class="bi bi-dash-circle mt-2 me-3" viewBox="0 0 16 16">
+                              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                              <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+                        </svg>
+                  </div> 
+
+      {%elif msg.level == 25 %}
+
+      <div class="alert alert-success  d-flex align-items-center alert-dismissible mb-0" role="alert">
+            <div class="row m-auto" >  
+                  <div class="col">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-check2-circle mt-2 me-3" viewBox="0 0 16 16">
+                              <path d="M2.5 8a5.5 5.5 0 0 1 8.25-4.764.5.5 0 0 0 .5-.866A6.5 6.5 0 1 0 14.5 8a.5.5 0 0 0-1 0 5.5 5.5 0 1 1-11 0"/>
+                              <path d="M15.354 3.354a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/>
+                        </svg>
+                  </div>
+      {%endif%}    
+                  <div class="col">
+                        <h3 style="width: max-content;" align="center">{{msg}}</h3>
+                  </div>
+            </div> 
+            <button type="button" class="btn-close pe-4" data-bs-dismiss="alert" aria-label="Close"></button>
+
+      </div>  
+
+       
+{%endif%}{%endfor%}

@@ -1,3 +1,7 @@
 .card-tit-bkgr{
-      background-color: rgba(150,150,150,0.6);
+      background-color: rgba(150,150,150,0.7);
+}
+.bold-6{
+      font-weight:600;
+      color:red;
 }

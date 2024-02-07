@@ -1,19 +1,25 @@
 {% extends "index.html" %}
 
+
+
+
 {% block content %}
+<h1 class="{{detail_class.title}}">{{detail.title}}</h1>
 
-<div class="row p-2 titcardbkgr">
-
-      {% for card in home.cards  %}
-      <div class="{{home.classes.class_card}}">
-            <div class="{{home.classes.class_card_title}}"><h3 class="" align="center">{{card.card_title}}</h3></div>
-            <div class="{{home.classes.class_card_div_p}}">
-                  <h5 class="card-title" align="center">{{card.card_box_title}}</h5>
-                  <p class="{{home.classes.class_card_p}}">{{card.card_box_p}}</p>
+<div class="row mt-2">
+      
+      {% for card in home_cards  %}
+      <div class="{{home_cards_class.class_card}}">
+            <div class="{{home_cards_class.class_card_title}}"><h3 class="bold-6" align="center">{{card.card_title}}</h3></div>
+            <div class="{{home_cards_class.class_card_div_p}}">
+                  <h5 class="card-title text-center bold-6 " >{{card.card_box_title}}</h5>
+                  <p class="{{home_cards_class.class_card_p}}">{{card.card_box_p}}</p>
             </div>
       </div>
-      <div class="titcardbkgr" style="height: 80px;width:100%;"><h1 class="titcardbkgr" >tttttt</h1></div>
       {% endfor %}
+      
 </div>
+      
+
 
 {% endblock content %}

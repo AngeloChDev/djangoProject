@@ -1,5 +1,6 @@
 from .models import Teams, Players, Profiles,Games, Gols_Scored
 from django.utils import timezone
+from .utils import maketot_dict
 
 now=timezone.now()
 class djError(Exception):
@@ -49,50 +50,56 @@ class Registrator:
       @classmethod
       def upload_teams(cls, new_team):
             try:
-
                   if  cls.search(Teams, {'name': new_team['name']}):
                         raise djError('team already exist')
                   team=Teams.objects.create(**new_team)
                   team.save()
-                  
             except djError as e :
                   print(e)
                   return None
             
       @classmethod
-      def upload_new_player(cls,new_player, old_team=None):
+      def upload_new_player(cls,new_player):#, old_team=None):
             try:
+                  
                   if cls.search(Players, {'player':new_player['player']}):
                         raise djError('Plyer name exist')
                   if not cls.search(Teams,{'name':new_player['team']["name"]}):
                         raise djError('The team where you want to add the new player doesn t exist')
-                  team=Teams.objects.get(name=new_player['team']['name'])
+                  team=Teams.objects.get(name=new_player['team']["name"])
                   player = Players.objects.create(player=new_player['player'],team=team)
                   
-                  if new_player["profile"] is not None:
-                        player_profile=Profiles.objects.create(**new_player["profile"])
-                        player.profile=player_profile
-                        #player_profile=player.profiles_set.create(**new_player["profile"])
-                        player_profile.save()
-                  if old_team is not None:
-                        for k,v in old_team.items():
-                              player.old_teams[k]=v
-                  
-                  player.old_teams[now.year]=team.id
+                  old=dict()
+                  if "profile" in new_player.keys():
+                        cls.add_profile_toplayer(player,new_player["profile"])
+                  if "old_team" in new_player.keys():
+                        old = maketot_dict(new_player["old_team"])
+                  old[now.year]=team.name
+                  player.old_teams=old.copy()
                   player.save()
+                  return True
             except djError as e:
                   print(e)
                   return None
       
       @staticmethod
-      def add_profile_toplayer(player_id, profile):
-            player=Players.objects.get(id=player_id)
-            if not bool(player.profile):
-                  player_profile=Profiles.objects.create(**profile)
-                  player.profile=player_profile
-                  player_profile.save()
+      def add_profile_toplayer(player, profile):
+            #player=Players.objects.get(id=player_id)
+            print(player.player,bool(player.profile is None))
+            if player.profile is None:
+                  if isinstance(profile, dict):
+                        obj_profile=Profiles.objects.create(**profile)
+                        player.profile=obj_profile
+                        obj_profile.save()
+                  elif isinstance(profile,Profiles):
+                        player.profile=profile
             else:
-                  Profiles.objects.filter(pk=player.profile.id).update(**profile)
+                  p=Profiles.objects.get(pk=player.profile.id)
+                  Profiles.objects.select_for_update().filter(pk=player.profile.id).update(**profile)
+                  p.refresh_from_db()
+                  
+            player.save()
+            return True
             
 
       @staticmethod
@@ -105,9 +112,13 @@ class Registrator:
       def upload_defoult(cls):
             for i in cls.teams.values():
                   cls.upload_teams(i)
-            
             for p in cls.players:
                   cls.upload_new_player(p)
+
+      @staticmethod
+      def get_it(model, kwargs):
+            obj = model.objects.get(**kwargs)
+            return obj
 
       @staticmethod
       def search(model, kwargs):

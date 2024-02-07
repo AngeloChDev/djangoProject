@@ -1,26 +1,24 @@
 {% extends "index.html" %}
 
 {% block content %}
-{% for team in teams %}
-<div class="card border-success mb-3 row widht-60 m-auto shadow">
-      <div class="card-header fs-4"><h3 align="center">{{team.name}}</h3></div>
-      <div class="card-body text-success fs-5 pt-4 pb-4">
-            
-            <p class="card-text text-center f-bold">The {{team.name}} from {{team.town}} Some quick example info about team.<br> Last played context tournament points win lose<br> flag color  {{team.color}}</p>
+<h1 class="{{detail_class.title}}">{{detail.title}}</h1>
+<div class="row mt-2 mb-1 height-10">
+      {% for team in teams %}
+      <div class="{{card_class.class_card}}">
+            <div class="{{card_class.class_card_title}}"><h3 class="bold-6" align="center"><a href="{% url 'team_info_page'  team.id%}" class="no-line">{{team.name}}</a></h3></div>
+            <div class="{{card_class.class_card_div_p}}">
+                  
+                  <p class="{{card_class.class_card_p}}">The {{team.name}} from {{team.town}} Some quick example info about team.<br> Last played context tournament points win lose<br> flag color  {{team.color}}</p>
+                  <a href="{%url 'team_deleter' team.id%}" class="no-line">delete this team</a>
+            </div>
       </div>
-</div>
-<br>
-{% endfor %}
-<div>
-      <form class="col-4 m-auto widht-60  shadow" method="POST">
-            <fieldset class="border border-info p-5 pb-5 rounded-2 shadow" >
-                  <legend><h1 class="fs-2 f-bold white">Sign up your team</h1></legend>
-                  
-                  
-                        {% csrf_token %}
-                        {{ form.as_p }}
-            </fieldset>
-      </form>
+      <br>
+      {% endfor %}
+      {% include "submitTeam.html"%}
+
+
 </div>
 
+
 {% endblock content %}
+

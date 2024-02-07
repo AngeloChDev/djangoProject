@@ -1,0 +1,30 @@
+{% extends "index.html" %}{% block content %}{% load custom_filter %}
+<h1 class="{{detail_class.title}}">{{detail.title}}</h1>
+      
+<div class="row">
+      <div class="col p-2">
+            <h2 class="fs-tit bold-6 ms-3 ps-3 white">Players Rank</h2>
+      
+            <ol type="1">
+            {% for player in rank_players  %}
+                  <li class=" white fs-2 m-1 p-1 ms-3 ps-2">Player {{player.0.player}}  has {{player.1}} point</li>
+            {% endfor %}
+
+            </ol>
+      </div>
+
+
+      
+      <div class="col">
+            <h2 class="fs-tit bold-6 ms-1 ps-3 white">Teams Rank</h2>
+            {{ winer_team |lop_winet_team |safe}}
+            
+      </div>
+
+
+
+</div>
+
+
+
+{% endblock%}
